@@ -1,0 +1,31 @@
+<%@ page pageEncoding="UTF-8" %>
+<%
+    if(request.getParameter("logon")!=null){
+        String username = request.getParameter("username");
+        session.setAttribute("username", username);
+        response.sendRedirect(request.getRequestURI());
+    }
+    if(request.getParameter("logoff")!=null){
+        session.removeAttribute("username");
+        response.sendRedirect("index.jsp");
+        
+    }
+%>
+<h1>GersonApp</h1>
+<%if(session.getAttribute("username")==null){%>
+    <div>Identifique-se para ter acesso ao site</div>
+    <form>
+        <input type="text" name="username"/>
+        <input type="submit" name="logon" value="Entrar"/>
+    </form>
+<%}else{%>
+    <form>
+        <a href="index.jsp">ÍNDICE</a> |
+        <a href="about.jsp">ABOUT</a> |        
+        <a href="loteria.jsp">LOTERIA</a> |
+
+        Bem vindo, <b><%= session.getAttribute("username") %></b>
+        <input type="submit" name="logoff" value="Sair"/>
+    </form>
+<%}%>
+<hr/>
